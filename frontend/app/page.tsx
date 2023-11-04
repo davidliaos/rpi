@@ -2,13 +2,6 @@
 
 import { Button } from "@/components/ui/button"
 import { Josefin_Sans } from 'next/font/google'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useRouter } from 'next/navigation'
 import Dark from '@/components/Dark'
