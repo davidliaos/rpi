@@ -8,19 +8,10 @@ app.use(express.json());
 app.use(cors(["http://localhost:5173"]))
 const PORT = 3000;
 
-// Define a Mongoose schema for the question data
-const questionSchema = new mongoose.Schema({
-  questionText: String,
-  openEnded: Boolean,
-  category: String,
-  saveToProfile: Boolean,
-  options: [String],
-  correctOption: [String],
-});
-
 // Define a User schema for question data
 const userSchema = new mongoose.Schema({
     fullName: String,
+    licenseID: String,
     primaryEmailAddress: {
       address: String,
       verified: Boolean,
@@ -40,12 +31,11 @@ const userSchema = new mongoose.Schema({
 
 // Create a Mongoose model based on the schema
 const User = mongoose.model('User', userSchema);
-const Questions = mongoose.model('Questions', questionSchema);
 
-// CRUD routes for questions
+// CRUD routes for users
 
-// Create a new question
-app.post('/questions', async (req, res) => {
+// Create a new user
+app.post('//user', async (req, res) => {
   try {
     const question = new Questions(req.body);
     await question.save();
