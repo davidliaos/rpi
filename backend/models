@@ -31,4 +31,4 @@ const Comment = mongoose.model('Comment', commentSchema);
 // Create a Mongoose model based on the schema
 const Post = mongoose.model('Post', postSchema);
 
-module.exports = Post;
+module.exports = {Post: Post, Comment: Comment, User: User};
