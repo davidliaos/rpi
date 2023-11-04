@@ -1,11 +1,1 @@
-schema
-
-users:
-attribute to check if they are verified, if they arent then they cannot post but can still view
-
-comments:
-*link posts to comments
-
-post: - contain images (just urls to s3 bucket)
-also has tags
-
+bang
