@@ -29,3 +29,18 @@ Navigate to the `frontend` directory and run the development server:
 npm run dev
 # or
 yarn dev
+```
+Open http://localhost:3000 with your browser to see the result.
+
+### Backend
+
+Navigate to the backend directory and run the development server:
+
+```
+npm run dev
+# or
+yarn dev
+```
+The backend server will start on http://localhost:5000.
+
+
