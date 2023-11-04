@@ -6,6 +6,8 @@ const commentModel = models.Comment;
 
 const app = express();
 
+// CRUD routes for posts
+
 app.post('/post', async (req, res) => {
   try {
     const post = new postModel(req.body);
@@ -26,7 +28,111 @@ app.get('/posts', async (req, res) => {
     }
 });
 
+// Get a post by ID
+app.get('/posts/:id', async (req, res) => {
+  try {
+    const post = await postModel.findById(req.params.id);
+    if (!post) {
+      res.status(404).send('Post not found');
+    } else {
+      res.status(200).send(post);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
+// Update a post by ID
+app.put('/post/:id', async (req, res) => {
+  try {
+    const post = await postModel.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    if (!post) {
+      res.status(404).send('Post not found');
+    } else {
+      res.status(200).send(post);
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+// Delete a post by ID
+app.delete('/post/:id', async (req, res) => {
+  try {
+    const post = await postModel.findByIdAndDelete(req.params.id);
+    if (!post) {
+      res.status(404).send('Post not found');
+    } else {
+      res.status(200).send(post);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// CRUD routes for comments
+
+app.post('/comment', async (req, res) => {
+  try {
+    const comment = new commentModel(req.body);
+    await comment.save();
+    res.status(201).send(comment);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+app.get('/comments', async (req, res) => {
+    let comments = await commentModel.find({});
+    
+    try {
+        res.send(comments);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+// Get a comment by ID
+app.get('/comments/:id', async (req, res) => {
+  try {
+    const comment = await commentModel.findById(req.params.id);
+    if (!comment) {
+      res.status(404).send('Comment not found');
+    } else {
+      res.status(200).send(comment);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+// Update a comment by ID
+app.put('/comment/:id', async (req, res) => {
+  try {
+    const comment = await commentModel.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    if (!comment) {
+      res.status(404).send('Comment not found');
+    } else {
+      res.status(200).send(comment);
+    }
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+// Delete a comment by ID
+app.delete('/comment/:id', async (req, res) => {
+  try {
+    const comment = await commentModel.findByIdAndDelete(req.params.id);
+    if (!comment) {
+      res.status(404).send('Comment not found');
+    } else {
+      res.status(200).send(comment);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 
 // CRUD routes for users
