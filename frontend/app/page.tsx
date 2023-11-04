@@ -25,30 +25,30 @@ export default function Home() {
           className="absolute circle-animation rounded-full top-[500px] right-[300px] z-0 w-[100px] h-[100px]"
         />
         <img
-          src="/images/doctors/doctor2.jpeg"
+          src="/images/doctors/doctor2.png"
           alt="asd"
           className="absolute circle-animation-reverse rounded-full top-[200px] w-[100px] h-[100px] right-[400px] z-0"
         />
         <img
-          src="/images/doctors/doctor3.jpeg"
+          src="/images/doctors/doctor3.png"
           alt="asd"
           className="absolute circle-animation rounded-full top-[400px] w-[100px] h-[100px] right-[630px] z-0"
         />
 
         <img
-          src="/images/doctors/doctor4.jpeg"
+          src="/images/doctors/doctor4.jpg"
           alt="asd"
           className="absolute circle-animation-reverse rounded-full top-[400px] w-[100px] h-[100px] right-[930px] z-0"
         />
 
       <img
-          src="/images/doctors/doctor5.jpeg"
+          src="/images/doctors/doctor5.jpg"
           alt="asd"
           className="absolute circle-animation rounded-full top-[200px] w-[100px] h-[100px] right-[1130px] z-0"
         />
 
       <img
-          src="/images/doctors/doctor6.jpeg"
+          src="/images/doctors/doctor6.jpg"
           alt="asd"
           className="absolute circle-animation-reverse rounded-full top-[600px] w-[100px] h-[100px] right-[1130px] z-0"
         />
