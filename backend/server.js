@@ -29,8 +29,29 @@ const userSchema = new mongoose.Schema({
     ],
   });
 
+// Define a Comment schema
+const commentSchema = new mongoose.Schema({
+    author: String,
+    postID: String,
+  });
+
+// Define a Post schema
+const postSchema = new mongoose.Schema({
+    postID: String,
+    title: String,
+    description: String,
+    author: String,
+    image: String,
+  });
+
 // Create a Mongoose model based on the schema
 const User = mongoose.model('User', userSchema);
+
+// Create a Mongoose model based on the schema
+const Comment = mongoose.model('Comment', userSchema);
+
+// Create a Mongoose model based on the schema
+const Post = mongoose.model('User', userSchema);
 
 // CRUD routes for users
 
@@ -45,6 +66,7 @@ app.post('//user', async (req, res) => {
   }
 });
 
+/*
 // Get all questions
 app.get('/questions', async (req, res) => {
   try {
@@ -97,6 +119,7 @@ app.delete('/questions/:id', async (req, res) => {
     res.status(500).send(error);
   }
 });
+*/
 
 const connectDB = async () => {
     try {
