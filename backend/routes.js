@@ -2,7 +2,6 @@ const express = require('express');
 const postModel = require("./models"); 
 const app = express();
 
-// Create a new post
 app.post('/add_post', async (req, res) => {
   try {
     const post = new postModel(req.body);
@@ -21,28 +20,27 @@ app.get('/get_posts', async (req, res) => {
     } catch (error) {
         res.status(500).send(error);
     }
-  /*
-  try {
-    const Post = mongoose.model('Post', postSchema);
-    const p = new Post({ 
-        postID: "1",
-        title: "My patient died",
-        description: "and im sad",
-        author: "anon123",
-        image: "",
-        tags: ["tag1", "tag2"],
-    });
-
-
-    console.log(p.title);
-    res.status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-  */
-
 });
 
+app.post('/add_user', async (req, res) => {
+  try {
+    const post = new postModel(req.body);
+    await post.save();
+    res.status(201).send(post);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+app.get('/get_posts', async (req, res) => {
+    let posts = await postModel.find({});
+    
+    try {
+        res.send(posts);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 
 

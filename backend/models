@@ -12,29 +12,14 @@ const postSchema = new mongoose.Schema({
     title: String,
     description: String,
     author: String,
-    image: String,
+    images: [String],
     tags: [String],
   });
 
 // Define a User schema for question data
 const userSchema = new mongoose.Schema({
-    fullName: String,
-    licenseID: String,
-    primaryEmailAddress: {
-      address: String,
-      verified: Boolean,
-    },
-    primaryPhoneNumber: {
-      number: String,
-      verified: Boolean,
-    },
-    externalAccounts: [
-      {
-        provider: String,
-        externalId: String,
-        verified: Boolean,
-      },
-    ],
+    points: Number,
+    verified: Boolean, //todo: verify
   });
 
 // Create a Mongoose model based on the schema
