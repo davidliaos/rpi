@@ -1,6 +1,7 @@
 const {ClerkExpressRequireAuth, clerkClient} = require('@clerk/clerk-sdk-node');
 const express = require('express');
 const models = require("./models"); 
+const NodeRSA = require('node-rsa');
 const postModel = models.Post;
 const userModel = models.User;
 const commentModel = models.Comment;
@@ -16,6 +17,46 @@ const app = express();
 
 
 //route: user signs up, we wanna store the userID and initiailize points and set verified to false 
+
+const key = new NodeRSA('-----BEGIN OPENSSH PRIVATE KEY-----\n'+
+'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' +
+'dQECAw==' +
+'-----END ENCRYPTED PRIVATE KEY-----', 'openssh-private');
 
 app.use(express.json())
 

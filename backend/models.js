@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 // Define a Comment schema
 const commentSchema = new mongoose.Schema({
-    userID: String,
-    postID: String,
-  });
+  commentText: String,
+  postTitle: String
+});
 
 // Define a Post schema
 const postSchema = new mongoose.Schema({
