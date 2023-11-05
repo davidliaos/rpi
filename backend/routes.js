@@ -1,10 +1,27 @@
+import { ClerkExpressWithAuth } from "@clerk/clerk-sdk-node";
 const express = require('express');
 const models = require("./models"); 
 const postModel = models.Post;
 const userModel = models.User;
 const commentModel = models.Comment;
 
+
 const app = express();
+
+//get top posts
+app.get('/top-posts', async (req, res) => {
+  try {
+    const posts = await postModel.find( { 'posts.points': { $gte: '10' } } );
+    if (!posts) {
+      res.status(404).send('Post not found');
+    } else {
+      res.status(200).send(posts);
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 
 // CRUD routes for posts
 

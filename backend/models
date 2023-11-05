@@ -12,6 +12,7 @@ const postSchema = new mongoose.Schema({
     title: String,
     description: String,
     author: String,
+    points: Number,
     images: [String],
     tags: [String],
   }, { timestamps: true });
