@@ -23,11 +23,17 @@ interface DataModel {
   }
   created: String,
   points: number
+
 }
+
+
 
 export default function Diagnoses({ params }: { params: { slug: string } }) {
   const [data, setData] = useState<DataModel>()
   const [aiText, setAiText] = useState("")
+  const [upvoted, setUpvoted] = useState(false);
+  const [downvoted, setDownvoted] = useState(false);
+  const [number, setNumber] = useState(0)
   useEffect(() => {
     (async () => {
       const posts = await fetch('http://localhost:3001/query-by-title', {
@@ -64,6 +70,7 @@ export default function Diagnoses({ params }: { params: { slug: string } }) {
 
       const jsonGPT = await gptResponse.json()
       setAiText(jsonGPT.choices[0].message.content)
+      setNumber(json_posts.points)
     })()
   }, [])
   return (
@@ -73,12 +80,30 @@ export default function Diagnoses({ params }: { params: { slug: string } }) {
         <div className="">
           <div className="flex items-center">
             <div>
-              <CaretUpIcon width={30} height={30} className="cursor-pointer"/>
-              <h3 className="ms-1">{data.points}</h3>
-              <CaretDownIcon width={30} height={30} className="cursor-pointer"/>
+              <CaretUpIcon 
+                width={30} 
+                height={30} 
+                className={`cursor-pointer ${upvoted ? 'text-green-500' : ''}`} 
+                onClick={() => {
+                  setUpvoted(!upvoted);
+                  if (downvoted) setDownvoted(false);
+                  setNumber(number + 1)
+                }}
+              />
+              <h3 className="ms-1">{number}</h3>
+              <CaretDownIcon 
+                width={30} 
+                height={30} 
+                className={`cursor-pointer ${downvoted ? 'text-red-500' : ''}`} 
+                onClick={() => {
+                  setDownvoted(!downvoted);
+                  if (upvoted) setUpvoted(false);
+                  setNumber(number - 1)
+                }}
+              />
             </div>
-            <h1 className="text-2xl font-bold ms-4">{data.title}</h1>
-          </div>
+          <h1 className="text-2xl font-bold ms-4">{data.title}</h1>
+            </div>
           <p>Posted: {data.created} | Username: N7bQ8sL2fX</p>
           <h2 className="text-xl font-bold mt-8">Patient</h2>
           <p>Category: {data.patient.category}</p>
