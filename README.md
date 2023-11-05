@@ -15,7 +15,8 @@ Medverse is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) 
 
 - **Frontend:** The frontend is built using Next.js, a popular React framework. It uses the Clerk library for user authentication and Radix UI for the dropdown menu. The frontend also uses Tailwind CSS for styling. You can find the frontend code in the `frontend` directory.
 
-- **Backend:** The backend is built using Express.js and MongoDB for the database. It uses several libraries such as bcrypt for password hashing, jsonwebtoken for generating JWT tokens, and mongoose for object modeling. You can find the backend code in the `backend` directory.
+- **Backend:** The backend is built using Express.js and MongoDB Atlas for the database. It uses several libraries such as bcrypt for password hashing, jsonwebtoken for generating JWT tokens, and mongoose for object modeling. You can find the backend code in the `backend` directory.
+- Uses Google Cloud's Healthcare API to [Deidentify](https://cloud.google.com/healthcare-api/docs/how-tos/deidentify) patient information. IE remove all protected health information before a post is created, so that the doctor doesn't have to do it on their own.
 
 ## Getting Started
 
