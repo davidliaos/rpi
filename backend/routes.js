@@ -1,12 +1,34 @@
-import { ClerkExpressWithAuth } from "@clerk/clerk-sdk-node";
+const {ClerkExpressRequireAuth, clerkClient, getAuth} = require('@clerk/clerk-sdk-node');
 const express = require('express');
 const models = require("./models"); 
 const postModel = models.Post;
 const userModel = models.User;
 const commentModel = models.Comment;
-
-
 const app = express();
+
+//route: user signs up, we wanna store the userID and initiailize points and set verified to false 
+
+//route to set verified true and get if they are verified
+
+app.get('/user-verified', async (req, res) => {
+    const {userID} = getAuth(req);
+    if (!userID) {
+      res.status(404).send('User not found');
+    } else {
+        const user = await userModel.findById(userID);
+        res.status(200).send(user.verified);
+    }    
+    
+    
+    let posts = await postModel.find({});
+    
+    try {
+        res.send(posts);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 
 //get top posts
 app.get('/top-posts', async (req, res) => {
@@ -27,9 +49,14 @@ app.get('/top-posts', async (req, res) => {
 
 app.post('/post', async (req, res) => {
   try {
+    ClerkExpressRequireAuth(),
+    (req, res) => {
+        res.json(req.auth);
+    }
     const post = new postModel(req.body);
     await post.save();
     res.status(201).send(post);
+    
   } catch (error) {
     res.status(400).send(error);
   }
