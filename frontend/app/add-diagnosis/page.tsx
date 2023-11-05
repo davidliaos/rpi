@@ -98,6 +98,7 @@ export default function AddDiagnosis() {
         }catch(e) {
             console.log(e)
         }
+        router.back()
     }
 
   return (
