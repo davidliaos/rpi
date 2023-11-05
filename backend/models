@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Define a Comment schema
 const commentSchema = new mongoose.Schema({
-    author: String,
+    userID: String,
     postID: String,
   });
 
@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema({
     postID: String,
     title: String,
     description: String,
-    author: String,
+    userID: String,
     points: Number,
     images: [String],
     tags: [String],
