@@ -13,12 +13,18 @@ export default function Home() {
 
   const { setTheme } = useTheme()
   const router = useRouter()
-  const [showVirus, setShowVirus] = useState(true) 
+  const [showVirus, setShowVirus] = useState(false) 
 
 
   return (
     <div className="h-[100%] grid-background">
       <Dark />
+
+      <img 
+          src="/images/medverselogo.png" 
+          alt="Logo" 
+          className="absolute rounded-full w-[20%] h-[20] top-[25%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 mt-5 p-1 bg-black" 
+      />
 
       <div className="relative">
         <img
@@ -71,7 +77,7 @@ export default function Home() {
           <Button variant="outline" onClick={() => router.push('/sign-in')}>Sign in</Button>
         </div>
         <Button 
-          className="s-[2%] absolute bottom-1 right-1 opacity-50 hover:opacity-100" 
+          className="s-[2%] absolute bottom-1 right-1 opacity-0 hover:opacity-100" 
           onClick={() => setShowVirus(!showVirus)} 
         >
           Toggle Virus
