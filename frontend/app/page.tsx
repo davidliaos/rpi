@@ -24,6 +24,15 @@ export default function Home() {
           alt="blah"
           className="absolute circle-animation rounded-full top-[500px] right-[300px] z-0 w-[100px] h-[100px] p-1 bg-black"
         />
+
+{/* THIS IS SO CUTE IT ADDS A VIRUS LIKE AGARIO
+      <img
+          src="/images/virus.png"
+          alt="asd"
+          className="absolute rounded-full top-[300px] right-[200px] z-0 w-[100px] h-[100px]"
+        />
+*/}
+
         <img
           src="/images/doctors/doctor2.png"
           alt="asd"
