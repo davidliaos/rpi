@@ -13,20 +13,11 @@ const app = express();
 app.get('/user-verified', async (req, res) => {
     const {userID} = getAuth(req);
     if (!userID) {
-      res.status(404).send('User not found');
+      res.status(404).send('User not authenticated');
     } else {
-        const user = await userModel.findById(userID);
+        const user = await userModel.findOne({ 'userID': userID }, 'verified');
         res.status(200).send(user.verified);
-    }    
-    
-    
-    let posts = await postModel.find({});
-    
-    try {
-        res.send(posts);
-    } catch (error) {
-        res.status(500).send(error);
-    }
+    }     
 });
 
 
