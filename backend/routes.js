@@ -6,6 +6,15 @@ const userModel = models.User;
 const commentModel = models.Comment;
 const app = express();
 
+const google = require('@googleapis/healthcare');
+const healthcare = google.healthcare({
+  version: 'v1',
+  auth: new google.auth.GoogleAuth({
+    scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+  }),
+});
+
+
 //route: user signs up, we wanna store the userID and initiailize points and set verified to false 
 
 app.use(express.json())
@@ -253,5 +262,79 @@ app.delete('/users/:id', async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+//Using Google Cloud's Healthcare API we de-identify the patient information
+//Checks against standards of major health companies for protected health data using AI
+
+const deidentifyDataset = async () => {
+  const cloudRegion = 'us-east4';
+  const projectId = 'medverse-404202';
+  const sourceDatasetId = 'maindataset';
+  const destinationDatasetId = 'deidentifiedmaindata';
+  const keeplistTags = 'PatientID'
+  const sourceDataset = `projects/${projectId}/locations/${cloudRegion}/datasets/${sourceDatasetId}`;
+  const destinationDataset = `projects/${projectId}/locations/${cloudRegion}/datasets/${destinationDatasetId}`;
+  const request = {
+    //Sending POST request to intially store the data into the database
+    sourceDataset: sourceDataset,
+    //After request is sent its sent to the source dataset, this is deidentified patient info.
+    destinationDataset: destinationDataset,
+    resource: {
+      config: {
+        dicom: {
+          keepList: {
+            tags: [keeplistTags],
+          },
+        },
+      },
+    },
+  };
+//Stores the de-identified data into the db to be pulled from later.
+  await healthcare.projects.locations.datasets.deidentify(request);
+  // print statement to double check that it ran successfully.
+  console.log(
+    `De-identified data written from dataset ${sourceDatasetId} to dataset ${destinationDatasetId}`
+  );
+};
+
+// searches DB for matching info.
+const dicomWebSearchForInstances = async () => {
+  const cloudRegion = 'us-east4';
+  const projectId = 'medverse=404202';
+  const datasetId = 'deidentifiedmaindata';
+  const dicomStoreId = 'maindata';
+  const parent = `projects/${projectId}/locations/${cloudRegion}/datasets/${datasetId}/dicomStores/${dicomStoreId}`;
+  const dicomWebPath = 'instances';
+  const request = {parent, dicomWebPath};
+
+  const instances =
+    await healthcare.projects.locations.datasets.dicomStores.searchForInstances(
+      request,
+      {
+        headers: {Accept: 'application/dicom+json,multipart/related'},
+      }
+    );
+  console.log(`Found ${instances.data.length} instances:`);
+  console.log(JSON.stringify(instances.data));
+};
+
+// Endpoint to de-identify the dataset and search for instances
+app.post('/deidentify-and-search', ClerkExpressRequireAuth(), async (req, res) => {
+  try {
+    // De-identify the dataset
+    await deidentifyDataset();
+
+    // Search for instances
+    const instances = await dicomWebSearchForInstances();
+
+    // Respond with the de-identified data
+    res.status(200).json(instances.data);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+deidentifyDataset();
+dicomWebSearchForInstances();
 
 module.exports = app;
