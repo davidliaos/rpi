@@ -38,13 +38,13 @@ export default function Home({
             </div>
         </header>
 
-        <div className="flex h-wap">
+        <div className="flex h-wap w-[100%]">
             <div className="flex flex-col w-[20%] border-e min-h-[100%]">
                 <Link href="/home" className={`h-[50px] flex items-center ms-4 ps-2 ${pathname == '/home' ? 'bg-slate-400/40 font-bold' : ''}`}>Home</Link>
                 <Link href="/home/diagnoses" className={`h-[50px] flex items-center ms-4 ps-2 ${pathname == '/home/diagnoses' ? 'bg-slate-400/40 font-bold' : ''}`}>Diagnoses</Link>
                 <Link href="/home/tags" className={`h-[50px] flex items-center ms-4 ps-2 ${pathname == '/home/tags' ? 'bg-slate-400/40 font-bold' : ''}`}>Tags</Link>
             </div>
-            <div className="ms-8 mt-8">
+            <div className="ms-8 mt-8 me-8 w-[100%]">
                 {children}
             </div>
         </div>

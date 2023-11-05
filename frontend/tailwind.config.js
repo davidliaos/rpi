@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      content: {
+        star: "' *'"
+      },
       height: {
         'wap': 'calc(100vh - 60px)',
       },

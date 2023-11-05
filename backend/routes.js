@@ -1,4 +1,4 @@
-const {ClerkExpressRequireAuth, clerkClient, getAuth} = require('@clerk/clerk-sdk-node');
+const {ClerkExpressRequireAuth, clerkClient} = require('@clerk/clerk-sdk-node');
 const express = require('express');
 const models = require("./models"); 
 const postModel = models.Post;
@@ -8,8 +8,9 @@ const app = express();
 
 //route: user signs up, we wanna store the userID and initiailize points and set verified to false 
 
-//route to set verified true and get if they are verified
+app.use(express.json())
 
+//route to set verified true and get if they are verified
 app.get('/user-verified', async (req, res) => {
     const {userID} = getAuth(req);
     if (!userID) {
@@ -24,7 +25,7 @@ app.get('/user-verified', async (req, res) => {
 //get top posts
 app.get('/top-posts', async (req, res) => {
   try {
-    const posts = await postModel.find( { 'posts.points': { $gte: '10' } } );
+    const posts = await postModel.find( {  } ).sort();
     if (!posts) {
       res.status(404).send('Post not found');
     } else {
@@ -40,15 +41,34 @@ app.get('/top-posts', async (req, res) => {
 
 app.post('/post', async (req, res) => {
   try {
-    ClerkExpressRequireAuth(),
-    (req, res) => {
-        res.json(req.auth);
-    }
-    const post = new postModel(req.body);
+    console.log(req.body)
+    const post = new postModel({
+      data: {
+        title: req.body?.title,
+        patient: {
+          category: req.body?.patient_category,
+          ethnicity: req.body?.ethnicity,
+          gender: req.body?.gender
+        },
+        clinical_information: {
+          symptoms: req.body?.symptoms,
+          family_history: req.body?.family_history,
+          patient_history: req.body?.patient_history,
+          social_history: req.body?.social_history,
+        },
+        diagnosis: {
+          examination_findings: req.body?.examination_findings,
+          diagnosis: req.body?.diagnosis
+        }
+      },
+      points: 0
+    });
+
     await post.save();
     res.status(201).send(post);
     
   } catch (error) {
+    console.log(error)
     res.status(400).send(error);
   }
 });

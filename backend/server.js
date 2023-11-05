@@ -6,8 +6,9 @@ const cors = require('cors')
 const app = express();
 mongoose.set('strictQuery', false);
 app.use(express.json());
-app.use(cors(["http://localhost:5173"]))
-const PORT = 3000;
+app.use(cors())
+const PORT = 3001;
+
 
 const connectDB = async () => {
     try {

@@ -8,10 +8,24 @@ const commentSchema = new mongoose.Schema({
 
 // Define a Post schema
 const postSchema = new mongoose.Schema({
-    postID: String,
-    title: String,
-    description: String,
-    userID: String,
+    data: {
+      title: String,
+      patient: {
+        category: String,
+        gender: String,
+        ethnicity: String,
+      },
+      clinical_information: {
+        symptoms: String,
+        patient_history: String,
+        family_history: String,
+        social_history: String
+      },
+      diagnosis: {
+        examination_findings: String,
+        diagnosis: String
+      }
+    },
     points: Number,
     images: [String],
     tags: [String],
