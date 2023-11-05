@@ -5,7 +5,7 @@ import { Josefin_Sans } from 'next/font/google'
 import { useTheme } from "next-themes"
 import { useRouter } from 'next/navigation'
 import Dark from '@/components/Dark'
-
+import { useState } from 'react'
 
 const jose = Josefin_Sans({weight: '700', subsets: ['latin'] })
 
@@ -13,10 +13,18 @@ export default function Home() {
 
   const { setTheme } = useTheme()
   const router = useRouter()
+  const [showVirus, setShowVirus] = useState(false) 
+
 
   return (
     <div className="h-[100%] grid-background">
       <Dark />
+
+      <img 
+          src="/images/medverselogo.png" 
+          alt="Logo" 
+          className="absolute rounded-full w-[7%] h-[20] top-[34%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 mt-5 p-1 bg-black" 
+      />
 
       <div className="relative">
         <img
@@ -24,6 +32,15 @@ export default function Home() {
           alt="blah"
           className="absolute circle-animation rounded-full top-[500px] right-[300px] z-0 w-[100px] h-[100px] p-1 bg-black"
         />
+
+ {showVirus && ( // conditionally render the image
+          <img
+            src="/images/virus.png"
+            alt="asd"
+            className="absolute rounded-full top-[300px] right-[200px] z-0 w-[100px] h-[100px]"
+          />
+        )}
+
         <img
           src="/images/doctors/doctor2.png"
           alt="asd"
@@ -59,7 +76,14 @@ export default function Home() {
           <Button onClick={() => router.push('/sign-up')}>Sign up</Button>
           <Button variant="outline" onClick={() => router.push('/sign-in')}>Sign in</Button>
         </div>
+        <Button 
+          className="s-[2%] absolute bottom-1 right-1 opacity-0 hover:opacity-100" 
+          onClick={() => setShowVirus(!showVirus)} 
+        >
+          Toggle Virus
+        </Button>
       </div>
     </div>
   )
+  
 }
