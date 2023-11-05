@@ -42,30 +42,36 @@ export default function Diagnoses({ params }: { params: { slug: string } }) {
   }, [])
   console.log(data)
   return (
-    <div>
+    <div className="">
       {data ? 
-      <>
-        <div className="flex items-center">
-          <div>
-            <CaretUpIcon width={30} height={30} className="cursor-pointer"/>
-            <h3 className="ms-1">{data.points}</h3>
-            <CaretDownIcon width={30} height={30} className="cursor-pointer"/>
+      <div className="">
+        <div className="">
+          <div className="flex items-center">
+            <div>
+              <CaretUpIcon width={30} height={30} className="cursor-pointer"/>
+              <h3 className="ms-1">{data.points}</h3>
+              <CaretDownIcon width={30} height={30} className="cursor-pointer"/>
+            </div>
+            <h1 className="text-2xl font-bold ms-4">{data.title}</h1>
           </div>
-          <h1 className="text-2xl font-bold ms-4">{data.title}</h1>
+          <p>Posted: {data.created} | Username: N7bQ8sL2fX</p>
+          <h2 className="text-xl font-bold mt-8">Patient</h2>
+          <p>Category: {data.patient.category}</p>
+          <p>Gender: {data.patient.gender}</p>
+          <p>Ethnicity: {data.patient.ethnicity}</p>
+          <h2 className="text-xl font-bold mt-8">Clinical Information</h2>
+          <p>Patient history: {data.clinical_information.patient_history}</p>
+          <p>Family history: {data.clinical_information.family_history}</p>
+          <p>Social history: {data.clinical_information.social_history}</p>
+          <h2 className="text-xl font-bold mt-8">Diagnosis</h2>
+          <p>Elimination findings history: {data.diagnosis.examination_findings}</p>
+          <p>Diagnosis history: {data.diagnosis.diagnosis}</p>
         </div>
-        <p>Posted: {data.created}</p>
-        <h2 className="text-xl font-bold mt-8">Patient</h2>
-        <p>Category: {data.patient.category}</p>
-        <p>Gender: {data.patient.gender}</p>
-        <p>Ethnicity: {data.patient.ethnicity}</p>
-        <h2 className="text-xl font-bold mt-8">Clinical Information</h2>
-        <p>Patient history: {data.clinical_information.patient_history}</p>
-        <p>Family history: {data.clinical_information.family_history}</p>
-        <p>Social history: {data.clinical_information.social_history}</p>
-        <h2 className="text-xl font-bold mt-8">Diagnosis</h2>
-        <p>Elimination findings history: {data.diagnosis.examination_findings}</p>
-        <p>Diagnosis history: {data.diagnosis.diagnosis}</p>
-      </> 
+        <div>
+          <h1>3 Comments</h1>
+        </div>
+      </div> 
+
       : 
       <></>
       }
