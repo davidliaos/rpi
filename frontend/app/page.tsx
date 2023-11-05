@@ -23,7 +23,7 @@ export default function Home() {
       <img 
           src="/images/medverselogo.png" 
           alt="Logo" 
-          className="absolute rounded-full w-[20%] h-[20] top-[25%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 mt-5 p-1 bg-black" 
+          className="absolute rounded-full w-[7%] h-[20] top-[34%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 mt-5 p-1 bg-black" 
       />
 
       <div className="relative">
