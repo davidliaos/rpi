@@ -22,6 +22,26 @@ Medverse is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) 
 
 To get started with the project, you need to run both the frontend and backend servers.
 
+## Requirements prior to running
+
+backend
+.env
+```
+MONGO_URL = 
+```
+frontend
+.env
+```
+NEXT_PUBLIC_CLERK_SIGN_IN_URL='/sign-in'
+NEXT_PUBLIC_CLERK_SIGN_UP_URL='/sign-up'
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL='/home'
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL='/verify-licence'
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+GCS_CLIENT_EMAIL=
+GCS_PRIVATE_KEY=
+```
+
 ### Frontend
 
 Navigate to the `frontend` directory and run the development server:
@@ -36,6 +56,7 @@ Open http://localhost:3000 with your browser to see the result.
 ### Backend
 
 Navigate to the backend directory and run the development server:
+
 
 ```
 npm run dev
